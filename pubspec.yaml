@@ -1,0 +1,33 @@
+name: jamendo_music_player
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  # flutter_launcher_icons: ^0.14.4
+
+# flutter_launcher_icons: 
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/icon/icon.png"
+#   min_sdk_android: 21
+#   adaptive_icon_foreground: "assets/icon/icon.png"
+#   adaptive_icon_background: "#ffffff"
+#   remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon/
