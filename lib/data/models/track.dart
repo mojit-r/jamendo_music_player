@@ -1,11 +1,11 @@
 class Track {
-  String id;
-  String name;
-  String artistName;
-  String albumName;
-  String imageUrl;
-  String audioUrl;
-  int duration;
+  final String id;
+  final String name;
+  final String artistName;
+  final String albumName;
+  final String imageUrl;
+  final String audioUrl;
+  final int duration;
 
   Track({
     required this.id,
@@ -21,10 +21,10 @@ class Track {
     return Track(
       id: json['id']?.toString() ?? '',
       name: json['name'] ?? 'Unknown Track',
-      artistName: json['artistName'] ?? 'Unknown Artist',
-      albumName: json['albumNmae'] ?? '',
-      imageUrl: json['imageUrl'] ?? '',
-      audioUrl: json['audioUrl'] ?? '',
+      artistName: json['artist_name'] ?? 'Unknown Artist',
+      albumName: json['album_name'] ?? '',
+      imageUrl: json['image'] ?? '',
+      audioUrl: json['audio'] ?? '',
       duration: (json['duration'] is int)
           ? json['duration']
           : int.tryParse(json['duration']?.toString() ?? '') ?? 0,

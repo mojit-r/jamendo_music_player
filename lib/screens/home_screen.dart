@@ -7,14 +7,22 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Size mq = MediaQuery.of(context).size;
+    Size mq = MediaQuery.of(context).size;
     final themeState = ref.watch(themeProvider);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Jamendo Player'),
         centerTitle: true,
-        leading: Image.asset('assets/icon/app_icon.png'),
+        leading: Padding(
+          padding: EdgeInsets.fromLTRB(
+            mq.width * 0.01,
+            mq.height * 0.008,
+            0,
+            mq.height * 0.004,
+          ),
+          child: Image.asset('assets/icon/app_icon.png'),
+        ),
         actions: [
           IconButton(
             onPressed: () => ref.read(themeProvider.notifier).themeChanger(),
