@@ -58,17 +58,6 @@ final ColorScheme darkColorScheme = ColorScheme.fromSeed(
 final ThemeData lightMode = ThemeData(
   useMaterial3: true,
   colorScheme: lightColorScheme,
-  // textTheme: TextTheme(
-  //   labelSmall: TextStyle(
-  //     fontSize: 14,
-  //     color: lightColorScheme.onPrimaryContainer,
-  //   ),
-  //   bodyMedium: TextStyle(color: lightColorScheme.onPrimaryContainer),
-  //   bodyLarge: TextStyle(
-  //     fontSize: 16,
-  //     color: lightColorScheme.onPrimaryContainer,
-  //   ),
-  // ),
   appBarTheme: AppBarTheme(
     backgroundColor: lightColorScheme.primary,
     foregroundColor: lightColorScheme.onPrimary,
@@ -77,26 +66,11 @@ final ThemeData lightMode = ThemeData(
     backgroundColor: lightColorScheme.primary,
     foregroundColor: lightColorScheme.onPrimary,
   ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      elevation: 4,
-      backgroundColor: lightColorScheme.primary,
-      foregroundColor: lightColorScheme.onPrimary,
-    ),
-  ),
-  // snackBarTheme: const SnackBarThemeData(
-  //   backgroundColor: Color.fromARGB(230, 2, 238, 113),
-  // ),
 );
 
 final ThemeData darkMode = ThemeData(
   useMaterial3: true,
   colorScheme: darkColorScheme,
-  // textTheme: TextTheme(
-  //   labelSmall: TextStyle(fontSize: 14, color: darkColorScheme.onPrimary),
-  //   bodyLarge: TextStyle(color: darkColorScheme.onPrimary),
-  //   bodyMedium: TextStyle(color: darkColorScheme.onPrimary),
-  // ),
   appBarTheme: AppBarTheme(
     backgroundColor: darkColorScheme.primary,
     foregroundColor: darkColorScheme.onPrimary,
@@ -105,15 +79,4 @@ final ThemeData darkMode = ThemeData(
     backgroundColor: darkColorScheme.primary,
     foregroundColor: darkColorScheme.onPrimary,
   ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      elevation: 5,
-      backgroundColor: darkColorScheme.primary,
-      foregroundColor: darkColorScheme.onPrimary,
-    ),
-  ),
-  // snackBarTheme: const SnackBarThemeData(
-  //   backgroundColor: Color.fromARGB(230, 2, 238, 113),
-  // ),
-  cardTheme: CardThemeData(color: darkColorScheme.onSecondary),
 );

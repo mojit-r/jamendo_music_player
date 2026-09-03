@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jamendo_music_player/provider/player_provider.dart';
+import 'package:jamendo_music_player/screens/now_playing_screen.dart';
+import 'package:jamendo_music_player/widget/mini_player.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:jamendo_music_player/provider/track_list_provider.dart';
@@ -137,16 +140,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 );
               }
               final track = musicState.tracks[index];
+              final playerState = ref.watch(playerProvider);
+              final isCurrentTrack = playerState.currentTrack?.id == track.id;
               return TrackTile(
                 track: track,
+                isPlaying: isCurrentTrack,
                 onTap: () {
-                  // navigate to Now Playing / trigger playback
+                  ref
+                      .read(playerProvider.notifier)
+                      .playTrack(
+                        track,
+                        playlist: musicState.tracks,
+                        index: index,
+                      );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const NowPlayingScreen()),
+                  );
                 },
               );
             },
           ),
         },
       ),
+      floatingActionButton: const MiniPlayer(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
