@@ -94,6 +94,14 @@ class TrackListNotifier extends Notifier<TrackListState> {
     await loadPage(offset: state.offset, isNextPage: true);
   }
 
+  Future<void> refresh() async {
+    if (_activeQuery == null) {
+      await fetchTracks();
+    } else {
+      await search(_activeQuery!);
+    }
+  }
+
   Future<void> loadPage({required int offset, bool isNextPage = false}) async {
     try {
       final response = _activeQuery == null
