@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jamendo_music_player/provider/player_provider.dart';
+import 'package:jamendo_music_player/screens/liked_songs_screen.dart';
 import 'package:jamendo_music_player/screens/now_playing_screen.dart';
 import 'package:jamendo_music_player/widget/mini_player.dart';
 import 'package:lottie/lottie.dart';
@@ -64,6 +65,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Image.asset('assets/icon/app_icon.png'),
         ),
         actions: [
+          IconButton(
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const LikedSongsScreen())),
+            icon: const Icon(Icons.favorite, color: Colors.yellow),
+          ),
           IconButton(
             onPressed: () => ref.read(themeProvider.notifier).themeChanger(),
             tooltip: 'theme mode',

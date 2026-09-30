@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jamendo_music_player/provider/player_provider.dart';
+import 'package:jamendo_music_player/provider/liked_songs_provider.dart';
 import 'package:jamendo_music_player/utils/formatters.dart';
 
 class NowPlayingScreen extends ConsumerWidget {
@@ -17,6 +18,9 @@ class NowPlayingScreen extends ConsumerWidget {
       return const Scaffold(body: Center(child: Text('Nothing playing')));
     }
 
+    final likedState = ref.watch(likedSongsProvider);
+    final isLiked = likedState.isLiked(track.id);
+
     final maxSeconds = playerState.duration.inSeconds.toDouble();
     final currentSeconds = playerState.position.inSeconds
         .clamp(0, playerState.duration.inSeconds)
@@ -31,7 +35,19 @@ class NowPlayingScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Now Playing')),
+      appBar: AppBar(
+        title: const Text('Now Playing'),
+        actions: [
+          IconButton(
+            onPressed: () =>
+                ref.read(likedSongsProvider.notifier).toggleLike(track),
+            icon: Icon(
+              isLiked ? Icons.favorite : Icons.favorite_border,
+              color: isLiked ? Colors.yellow : null,
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(
@@ -87,11 +103,9 @@ class NowPlayingScreen extends ConsumerWidget {
             Slider(
               value: currentSeconds,
               max: maxSeconds > 0 ? maxSeconds : 1,
-              onChanged: (value) {
-                ref
-                    .read(playerProvider.notifier)
-                    .seek(Duration(seconds: value.toInt()));
-              },
+              onChanged: (value) => ref
+                  .read(playerProvider.notifier)
+                  .seek(Duration(seconds: value.toInt())),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -130,6 +144,19 @@ class NowPlayingScreen extends ConsumerWidget {
               ],
             ),
             const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () =>
+                      ref.read(likedSongsProvider.notifier).toggleLike(track),
+                  icon: Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: isLiked ? Colors.red : null,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
