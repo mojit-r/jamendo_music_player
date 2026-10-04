@@ -144,19 +144,6 @@ class NowPlayingScreen extends ConsumerWidget {
               ],
             ),
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () =>
-                      ref.read(likedSongsProvider.notifier).toggleLike(track),
-                  icon: Icon(
-                    isLiked ? Icons.favorite : Icons.favorite_border,
-                    color: isLiked ? Colors.red : null,
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
