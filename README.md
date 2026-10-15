@@ -1,6 +1,6 @@
 # 🎵 Jamendo Music Player
 
-A Flutter music player app built with the Jamendo Music API — browse tracks, search, paginated infinite scroll, and full audio playback (play/pause/seek/next/previous).
+A Flutter music player app built with the Jamendo Music API — browse tracks, search, paginated infinite scroll, full audio playback, and a liked-songs collection.
 
 ---
 
@@ -9,6 +9,7 @@ A Flutter music player app built with the Jamendo Music API — browse tracks, s
 - 🎧 Browse & search tracks via the Jamendo API
 - ⏬ Infinite scroll pagination (load more on scroll, duplicate-request safe)
 - ▶️ Full playback controls — play/pause, next/previous, seek bar
+- ❤️ Like songs and play them back from a dedicated Liked Songs screen
 - 🎚️ Mini player + full Now Playing screen
 - 🌗 Light & Dark theme support
 - ⚠️ Loading, error, and empty states handled throughout
@@ -39,10 +40,12 @@ lib/
 │ └── services/jamendo_service.dart     # API calls + error handling
 ├── provider/
 │ ├── track_list_provider.dart          # browse/search + pagination state
-│ └── player_provider.dart              # playback state (wraps just_audio)
+│ ├── player_provider.dart              # playback state (wraps just_audio)
+│ └── liked_songs_provider.dart         # liked-songs collection, keyed by track id
 ├── screens/
 │ ├── home_screen.dart
-│ └── now_playing_screen.dart
+│ ├── now_playing_screen.dart
+│ └── liked_songs_screen.dart
 ├── widget/
 │ ├── track_tile.dart
 │ ├── mini_player.dart
@@ -82,6 +85,7 @@ flutter run
 - **State management:** Riverpod (`Notifier`/`NotifierProvider`) throughout.
 - **`TrackListNotifier`** — handles both browsing and searching (single active mode via internal `_activeQuery`), tracks `offset`/`isLoadingMore`/`hasReachedEnd` for pagination, and guards against duplicate requests near the scroll threshold.
 - **`PlayerNotifier`** — wraps a single `just_audio` player instance, exposes `position`/`duration`/`isPlaying` as reactive state via stream listeners, holds its own playlist snapshot so playback is decoupled from whatever list is on screen, and auto-advances on track completion.
+- **`LikedSongsNotifier`** — tracks liked tracks as a `Set<String>` of track IDs plus the matching track data, kept intentionally separate from `PlayerNotifier` so "liked" status is per-track rather than a single global flag.
 - Layers are one-directional: screens → providers → services/models — so UI and networking code stay independent of each other.
 
 ---
@@ -90,3 +94,4 @@ flutter run
 
 - Offline caching (bonus) was not implemented due to time constraints.
 - Home screen uses a single-column list rather than a responsive grid — a straightforward extension if needed later.
+- Liked Songs screen does not yet highlight the currently-playing track (Home screen does) — a minor, known gap.
